@@ -1,10 +1,10 @@
-﻿# JADA documentation #
+﻿# Eve documentation #
 	Version: V1.02-27-17.12.52A
 	Last Update: 02/27/2017
-
+* Latest status: Uploaaded files to Git Hub
 
 ## Introduction ##
-	JADA is a Python IRC Bot.
+	Eve is a Python IRC Bot.
 
 ### Goals ###
 
@@ -24,22 +24,22 @@
 
 ### Requirements ###
 
-JADA runs on Python 2.6 and 2.7. Many of the plugins require
+Eve runs on Python 2.6 and 2.7. Many of the plugins require
 [lxml](http://lxml.de/).
 
 ## Table of contents ##
 
 * [[Installation]]
 
-    File can be started via the terminal window. place JADA.py in the Bin directory.
+    File can be started via the terminal window. place Eve.py in the Bin directory.
 
 * [[Configuration]]
 
    #!/usr/bin/python
-# JADA.py - A simple Python IRC bot
+# Eve.py - A simple Python IRC bot
 # Authors:  Jraglin
 #Version: V1.02-27-17.12.52A  
-# Last stable: JADA1-v1.02.26.17.23.27P.py
+# Last stable: Eve1-v1.02.26.17.23.27P.py
 #---------------------------------------------------------------------
 # Suggestions.
 
@@ -54,7 +54,7 @@ JADA runs on Python 2.6 and 2.7. Many of the plugins require
 #---------------------------------------------------------------------
 # Overview.
 
-# JADA is an IRC bot presently written in pure Python.  She is
+# Eve is an IRC bot presently written in pure Python.  She is
 # compatible with Python 2 but has not been tested with Python 3.
 
 #---------------------------------------------------------------------
@@ -64,7 +64,7 @@ import re, socket, os
 
 #---------------------------------------------------------------------
 # Some constants.
- 
+
 zero      = 0                   # Zero
 one       = 1                   # One
 false     = 0                   # Boolean False
