@@ -1,10 +1,10 @@
 ﻿# JADA documentation #
-	Version: V1.02-27-17.12.52A
-	Last Update: 02/27/2017
+	Version: V1.05-30-18.04.00P
+	Last Update: 05/30/2018
 * Latest status: Uploaaded files to Git Hub
 
 ## Introduction ##
-	Eve is a Python IRC Bot.
+	Jada is the Platform that Eve Runs on.
 
 ### Goals ###
 
