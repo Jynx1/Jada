@@ -1,10 +1,10 @@
 ﻿# JADA documentation #
-	Version: V1.05-30-18.04.00P
-	Last Update: 05/30/2018
+	Version: V1.02-27-17.12.52A
+	Last Update: 02/27/2017
 * Latest status: Uploaaded files to Git Hub
 
 ## Introduction ##
-	Jada is the Platform that Eve Runs on.
+	Jada is the platform that Eve runs on.
 
 ### Goals ###
 
