@@ -1,11 +1,11 @@
 ﻿# JADA.Eve documentation #
 	Version: 05-30-18:4.59.PM
-	Last Update: 05/30/2018
+	Last Update: 06/21/2018
 
 * Latest status: Uploaaded files to Git Hub
 
 ## Introduction ##
-	Eve is a the Bash Profile that is running onLeap 42.3
+	Eve is a Bash script Profile that is running on Leap 42.3
 
 ### Goals ###
 
@@ -25,254 +25,281 @@
 
 ### Requirements ###
 
-Eve runs on Python 2.6 and 2.7. Many of the plugins require
-[lxml](http://lxml.de/).
+Eve runs on Jada Opensuse 42.3 operating system
 
 ## Table of contents ##
 
 * [[Installation]]
 
-    File can be started via the terminal window. place Eve.py in the Bin directory.
+    Eve.sh is the .bashrc file that configures the terminal under the Bash shell script environment.
 
 * [[Configuration]]
 
-   #!/usr/bin/python
-# Eve.py - A simple Python IRC bot
-# Authors:  Jraglin
-#Version: V1.02-27-17.12.52A  
-# Last stable: Eve1-v1.02.26.17.23.27P.py
-#---------------------------------------------------------------------
-# Suggestions.
-
-# These are just suggestions:
+#######################################################
+# .bashrc
+# Bash File
+# Eve's Profile under Root su Account
+# Last Modified 03-02-2018
+# Add:######### Removed: ########### Changed: Alias: aterm
+# Running on OpenSuSE Leap-42.1
+#######################################################
+# Sample .bashrc file for SuSE Leap42.3
+# Copyright (c) SuSE
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
 #
-# 1. Limit lines to 70 characters (code or commands)
-# 2. Indent using 4 spaces as opposed to tabs
-# 3. Use some inline comments
-# 4. Start to handle error cases
-# 5. Change hard-coded constants to program parameters
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
 
-#---------------------------------------------------------------------
-# Overview.
+# EXPORTS
+#######################################################
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+export EDITOR=/usr/bin/nano
+#export EDITOR=/usr/bin/mcedit
 
-# Eve is an IRC bot presently written in pure Python.  She is
-# compatible with Python 2 but has not been tested with Python 3.
+# For some news readers it makes sense to specify the NEWSSERVER variable here
+#export NEWSSERVER=your.news.server
 
-#---------------------------------------------------------------------
-# Import required libraries.
-
-import re, socket, os
-
-#---------------------------------------------------------------------
-# Some constants.
-
-zero      = 0                   # Zero
-one       = 1                   # One
-false     = 0                   # Boolean False
-true      = 1                   # Boolean True
-
-#---------------------------------------------------------------------
-# Program parameters.
-
-# botnick  = Default nick
-# bufsize  = Input buffer size
-# channel  = Default IRC channel
-# port     = Default IRC port number
-# server   = Default IRC server hostname
-# master   = Owner of the bot
-# uname    = Bot username (NOT NICK!)
-# realname = Bot's real name
-
-botnick    = "Jynx2"
-bufsize    = 2048
-channel    = "#Jraglin"
-port       = 8001
-server     = "irc.opensuse.org"
-master     = "jraglin"
-uname      = "jynx2"
-realname   = "Jynx2"
-
-#---------------------------------------------------------------------
-# Set up a brief-replies dictionary.
-
-# This is used to implement brief replies to brief commands or remarks
-# such as:
+# If you want to use a Palm device with Linux, uncomment the two lines below.
+# For some (older) Palm Pilots, you might need to set a lower baud rate
+# e.g. 57600 or 38400; lowest is 9600 (very slow!)
 #
-#     Jynx2, go away!
-# or  Hello, Jynx2
+#export PILOTPORT=/dev/pilot
+#export PILOTRATE=115200
+PATH=$PATH:/usr/lib/festival/ ;export PATH
+export PS1="[\[\033[1;31m\w\[\033[0m]\n[\t \u]$ " # Command Prompt
+export EDITOR=/usr/bin/nano # Imports Text Editor Settings
+export HISTFILESIZE=3000 # The bash history should save 3000 commands
+export HISTCONTROL=ignoredups # Don't put duplicate lines in the history.
 
-Replies = dict()
-Replies ['die'      ] = "No, you"
-Replies ['goodbye'  ] = "I'll miss you"
-Replies ['sayonara' ] = "I'll miss you"
-Replies ['scram'    ] = "No, you"
-Replies ['shout'    ] = "NO I WON'T"
-Replies ['dance'    ] = botnick + " dances"
-Replies ['sing'     ] = "Tra la la"
-Replies ['hello'    ] = "Hi"
-Replies ['howdy'    ] = "Hi"
-Replies ['time'     ] = "It is TIME for a RHYME"
-Replies ['master'   ] = master + " is my master"
-Replies ['bacon'    ] = "Give me some, please!"
-Replies [botnick    ] = "What do you want?"
-# You can add more replies, like so:
-# Replies['action] = "Reply"
-#---------------------------------------------------------------------
-# Subroutine.
+# Define a few Color's
+BLACK='\e[0;30m'
+BLUE='\e[0;34m'
+GREEN='\e[0;32m'
+CYAN='\e[0;36m'
+RED='\e[0;31m'
+PURPLE='\e[0;35m'
+BROWN='\e[0;33m'
+LIGHTGRAY='\e[0;37m'
+DARKGRAY='\e[1;30m'
+LIGHTBLUE='\e[1;34m'
+LIGHTGREEN='\e[1;32m'
+LIGHTCYAN='\e[1;36m'
+LIGHTRED='\e[1;31m'
+LIGHTPURPLE='\e[1;35m'
+YELLOW='\e[1;33m'
+WHITE='\e[1;37m'
+NC='\e[0m'              # No Color
 
-# Name:       ping
-# Arguments:  None
-# Purpose:    Responds to server Pings
+# Sample Command using color:
+# echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} -
+# DISPLAY on ${RED}$DISPLAY${NC}\n"
 
-def ping():
-    global ircsock
-    ircsock.send ("PONG :pingis\n")
+# SOURCED ALIAS'S AND SCRIPTS
 
-#---------------------------------------------------------------------
-# Subroutine.
+#######################################################
 
-# Name:       sendmsg
-# Arguments:  chan = channel
-#             msg  = message
-# Purpose:    Responds to server Pings
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
-# Sends a specified message to a specified channel.
+# enable programmable completion features
+if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
 
-def sendmsg (chan, msg):
-    global ircsock
-    ircsock.send ("PRIVMSG "+ chan +" :"+ msg + "\n")
+### Begin insertion of Bash, Perl, Python Scripts ###
+# source ~ /Jynx/Toxic/
 
-#---------------------------------------------------------------------
-# Subroutine.
+# Alias's to BashScripts
+alias Backup='sh /home/jraglin/bin/Backup.sh' # Backups System
+alias Menu='Menu.sh' # Bash Script to call System Comands
 
-# Name:       JoinChan
-# Arguments:  chan = channel
-# Purpose:    Joins a channel
+# ALIAS'S OF ALL TYPES SHAPES AND FORMS ;)
+# test -s ~/.alias && . ~/.alias || true
 
-def JoinChan (chan):
-    global ircsock
-    ircsock.send ("JOIN "+ chan +"\n")
+#######################################################
 
-#---------------------------------------------------------------------
-# Subroutine.
+# Alias to Monitor and provide System Admin. Information
+alias Logs='sudo journalctl -f' # Displays a live Log files.
+alias System@='sudo journalctl --since' # Displays Logs from Date.
+alias Status='htop' # Displays Real Time Stats of the System.
+alias Ps='ps auxf'
+alias Pg='ps aux | grep'  #requires an argument
+alias Openports='netstat -nape --inet > Openports.log' # Open Network Ports
+alias Trafic='sudo bmon' # Displays Network Bandwith between Hosts.
+alias Scan='sudo nmap -oN NetworkScan.log 10.0.0.0/16' # Scans Sub-Network
+alias Trace='sudu traceroute 8.8.8.8> Trace.log' # Trace route to DNS Server
+alias Root='su'
+alias hist='history | grep $1' # Requires one input
+alias Checkup='sudo chkrootkit > Checkup.log' # Checks the system for intrusion
+alias CheckFile='clamscan -v   ' # Scans file for virus
+alias CheckVirus='sudo freshclam' # Updates Virus.Dat file
 
-# Name:       ProcHello
-# Arguments:  None
-# Purpose:    Processes a Hello request
+# Alias to update operating system and software packages
+alias Update='sudo zypper update' # Update software packages
+alias Refresh='sudo zypper refresh' #refresh software packages
+alias Patch='sudo zypper patch' # Patch softare packages
+alias Install='sudo zypper install ' #Install software
+alias Upgrade='sudo zypper up ' # upgrades installed packeges to next
+versioh
 
-def ProcHello():
-    global ircsock
-    ircsock.send ("PRIVMSG "+ channel +" :Hello!\n")
+# Alias's to control hardware
+alias cdo='eject /dev/cdrecorder' # Opens CD-Door
+alias cdc='eject -t /dev/cdrecorder' # Opens CD-Door
+alias dvdo='eject /dev/dvd' # Opens CD-Door
+alias dvdc='eject -t /dev/dvd' # Opens CD-Door
+alias Mounted='df -hT' # Displays Hard-drives connemcted to system
 
-#---------------------------------------------------------------------
-# Main routine.
+# Alias to xterm and aterm Terminal Profiles.
+alias term='xterm -bg AntiqueWhite -fg Black &'
+alias termb='xterm -bg AntiqueWhite -fg NavyBlue &'
+alias termg='xterm -bg AntiqueWhite -fg OliveDrab &'
+alias termr='xterm -bg AntiqueWhite -fg DarkRed &'
+alias aterm='xterm -ls -fg gray -bg black'
+alias xtop='xterm -fn 6x13 -bg LightSlateGray -fg black -e top &'
+alias Eve='xterm -fn 7x14 -bg DarkOrange4 -fg white -e su &'
 
-def Main():
-    global ircsock, Replies
-                                # Set up a couple of reply patterns
-    pattern1 = '.*:(\w+)\W*%s\W*$' % (botnick)
-    pattern2 = '.*:%s\W*(\w+)\W*$' % (botnick)
+# Alias to Copy and Play Media
+# alias scan='scanimage -L' # Copies Image
+alias playw='for i in *.wav; do play $i; done' # Play *.wav Files
+alias playo='for i in *.ogg; do play $i; done' # Play *.ogg Files
+alias playm='for i in *.mp3; do play $i; done' # Play *.mp3 Files
+alias copydisk='dd if=/dev/dvd of=/dev/cdrecorder' # Copies bit by bit from dvd to cdrecorder drives.
+alias dvdrip='vobcopy -i /dev/dvd/ -o ~/DVDs/ -l' # Rips the data from DVD and copies to a CD
 
-                                # Create a network socket
-    ircsock = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
-                                # Connect to server
-    ircsock.connect ((server, port))
-                                # Authenticate
+# Alias to local Drives
+alias Jynx='cd /home/jraglin/Jynx'
+alias Downloads='cd /home/jraglin/Downloads'
+alias Jacky='cd /home/jraglin/Jacky'
 
-    ircsock.send ("USER " + uname + " 2 3 " + realname + "\n")
+# Alias to connect to cloud Directories
+alias Vault='cd /home/jraglin/Dropbox'
 
-                                # Assign nick
-    ircsock.send ("NICK "+ botnick + "\n")
-    # Auth to nickserv, uncomment this if needed and change password to the nickserv password
-    #ircsock.send ("PRIVMSG NickServ :identify password \n")
-    JoinChan (channel)          # Join channel
+# Alias of chmod commands
+alias mx='chmod a+x'
+alias 000='chmod 000'
+alias 644='chmod 644'
+alias 755='chmod 755'
 
-    while true:                 # Main loop
-                                # Receive data from server
-        ircmsg = ircsock.recv (bufsize)
-                                # Remove newlines
-        ircmsg = ircmsg.strip ('\n\r')
+# Alias's to modified commands
+alias Cls='clear' # Clears screen
+alias Profile='nano /home/jraglin/.bashrc' # Opens this file
+alias Gohome='cd ~; clear' # Goes to Home directory & resets Screen
+alias Home='cd ~' # Gos to Home directory
+alias Search="find . -type f -iname" # searchs for file in current Directory
+alias Move='mv' # Moves a File
+alias Copy='cp -i' # Copies a File
+alias Rename='mv -i' # Renames a File
+alias Delete='rm' # delets a File
+alias Compress='tar -czvf ' # Compress a File
+alias Unzip='tar -zxvf' # Un-compress a File
+alias Ping='ping -c 100' # Pings a Host 100 times
+alias Today='date "+%Y-%m-%d %A    %T %Z"' # displays current Date
+alias Nano='nano -w' # Opens Text Editor in debug mode.
+alias Iris='irssi' # Chat-Bot
+alias Reload='bash --login' # Reloads the .bashrc file-- Profile
+alias Solve='bc' # Loads Math Modual -- type quit to exit
+alias PlasmaStop='killall plasmashell' # Stops the Plasma Shell
+alias PlasmaStart='kstart plasmashell' # Restarts Plasma Shell
 
-        print ircmsg            # Echo the input
-                                # Let the bot be a little chatty
-                                # Something like "Hello, Bot" ?
-        m1 = re.match (pattern1, ircmsg, re.I)
-        m2 = re.match (pattern2, ircmsg, re.I)
-        if ((m1 == None) and (m2 != None)): m1 = m2
+# Alias to multiple ls commands
+alias la='ls -Al'               # show hidden files
+alias ls='ls -aF --color=always' # add colors and file type extensions
+alias lx='ls -lXB'             	# sort by extension
+alias lk='ls -lSr'              # sort by size
+alias lc='ls -lcr'		# sort by change time
+alias lu='ls -lur'		# sort by access time
+alias lr='ls -lR'               # recursive ls
+alias lt='ls -ltr'              # sort by date
+alias lm='ls -al |more'         # pipe through 'more'
 
-        if (m1 != None):        # Yes
-            word = m1.group (1) # Word found
-            word = word.lower() # Make word lower case
-                                # Print a reply
-            if (word in Replies):
-                sendmsg (channel, Replies [word])
+# Alias Shortcuts to graphical programs.
+alias kwrite='kwrite 2>/dev/null &'
+alias firefox='firefox 2>/dev/null &'
+alias atom= 'aton 2>dev/null &'
 
-                                # If the server  pings us,  then we've
-                                # got to respond!
-        if ircmsg.find ("PING :") != -1:
-            ping()
+# Alias for lynx web browser
+alias bbc='lynx -term=vt100 http://news.bbc.co.uk/text_only.stm'
+alias nytimes='lynx -term=vt100 http://nytimes.com'
+alias cnn='lynx -term=vt100 http://cnn.com'
 
-        if ircmsg.find (":!say ") != -1:
-            say_split = ircmsg.split ("!say ")
-            sendmsg (channel, say_split [1])
-            sendmsg (master, "Message sent: " + say_split [1])
+# UNUSED ALIAS
+alias Files='du -h --max-depth=1'
+# alias d=`echo "Hello Jraglin. today's date is" | festival --tts; date +'%A %B %e' | festival --tts`
 
-        if ircmsg.find ("!commands") != -1:
-            sendmsg (channel, "Commands:\n")
-            sendmsg (channel, "!say : Say stuff\n")
+# Aliass to local workstations
+# alias netpath='telnet 161.102.45.203 '
+# alias jason='ssh 192.168.2.103 -l root'
 
-# welcome message
-#        if ircmsg.find ("JOIN " + channel) != -1:
-#            sendmsg (channel, "Hello!")
+# ALIAS TO REMOTE SERVERS
+# alias ANYNAMEHERE='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
+# Alias's to TN5250 programs. AS400 access commands.
+# alias d1='xt5250 env.TERM = IBM-3477-FC env.DEVNAME=D1 192.168.2.5 &'
+# alias d2='xt5250 env.TERM = IBM-3477-FC env.DEVNAME=D2 192.168.2.5 &'
+# alias tn5250j='nohup java -jar /home/crouse/tn5250j/lib/tn5250j.jar 2>>error.log &'
 
-# lulz
-        if ircmsg.find ("XD") != -1:
-            sendmsg(channel, "Quit saying that! \n")
+#######################################################
 
-# change nick
-        if ircmsg.find (":!nick ") != -1:
-            str_split = ircmsg.split ("!nick ")
-            ircsock.send ("NICK "+ str_split [1] + "\n")
-            sendmsg (master, "Nick changed to " + str_split [1] + ".")
+# SPECIAL FUNCTIONS
+#######################################################
 
-# send notice
-        if ircmsg.find (":!sendnotice ") != -1:
-            str_split = ircmsg.split ("!sendnotice ")
-            ircsock.send ("NOTICE " + channel + " " + str_split [1] + "\n")
-            sendmsg (master, "Notice sent! Notice: " + str_split [1])
+netinfo ()
+{
+echo "--------------- Network Information ---------------"
+/sbin/ifconfig | awk /'inet addr/ {print $2}'
+echo ""
+/sbin/ifconfig | awk /'Bcast/ {print $3}'
+echo ""
+/sbin/ifconfig | awk /'inet addr/ {print $4}'
+echo ""
+/sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
+echo "---------------------------------------------------"
+}
+spin ()
+{
+echo -ne "${RED}-"
+echo -ne "${WHITE}\b|"
+echo -ne "${BLUE}\bx"
+sleep .02
+echo -ne "${RED}\b+${NC}"
+}
+scpsend ()
+{
+scp -P PORTNUMBERHERE "$@" USERNAME@YOURWEBSITE.com:/var/www/html/pathtodirectoryonremoteserver/;
+}
 
-# op and deop
-        if ircmsg.find ("!op") != -1:
-            str_split = ircmsg.split ("!op ")
-            ircsock.send ("MODE " + channel + " +o " + str_split [1] + "\n")
-            sendmsg (master, "Opped " + str_split [1] + ".")
+# NOTES
+#######################################################
+# To temporarily bypass an alias, we preceed the command with a \
+# EG:  the ls command is aliased, but to use the normal ls command you would
+# type \ls
 
-        if ircmsg.find ("!deop") != -1:
-            str_split = ircmsg.split ("!deop ")
-            ircsock.send ("MODE " + channel + " -o " + str_split [1] + "\n")
-            sendmsg (master, "Deopped " + str_split [1] + ".")
-# voice
-        if ircmsg.find ("!voice") != -1:
-            str_split = ircmsg.split ("!voice ")
-            ircsock.send ("MODE " + channel + " +v " + str_split [1] + "\n")
-            sendmsg (master, "Voiced " + str_split [1] + ".")
+# mount -o loop /home/crouse/NAMEOFISO.iso /home/crouse/ISOMOUNTDIR/
+# umount /home/crouse/NAMEOFISO.iso
+# Both commands done as root only.
 
-        if ircmsg.find ("!voice") != -1:
-            str_split = ircmsg.split ("!voice ")
-            ircsock.send ("MODE " + channel + " -v " + str_split [1] + "\n")
-            sendmsg (master, "Removed voice on " + str_split [1] + ".")
+# WELCOME SCREEN
+#######################################################
+clear
+for i in `seq 1 15` ; do spin; done ;echo -ne "${WHITE} GHOST ${NC}"; for i in `seq 1 15` ; do spin; done ;echo "";
+echo -e ${LIGHTBLUE}`cat /etc/os-release` ;
+echo -e "Kernel Information: " `uname -smr`;
+echo -e ${LIGHTBLUE}`bash --version`;echo ""
+echo -ne "Hello $USER today is "; date
+echo -e "${WHITE}"; cal ; echo "";
+echo -ne "${CYAN}";netinfo;
+df -hT
+#mountedinfo ; echo ""
+echo -ne "${LIGHTBLUE}Uptime for Eve is ";uptime | awk /'up/ {print $3,$4}'
+for i in `seq 1 15` ; do spin; done ;echo -ne "${WHITE} http://wix.com/jraglin ${NC}"; for i in `seq 1 15` ; do spin; done ;echo "";
+echo ""; echo ""
 
-# set topic
-        if ircmsg.find ("!topic") != -1:
-            str_split = ircmsg.split ("!topic ")
-            ircsock.send ("TOPIC " + channel + " " + str_split [1] + "\n")
-            sendmsg (master, "Topic set to: " + str_split [1] + ".")
-
-#---------------------------------------------------------------------
-# Main program.
-
-Main()
-exit (zero)                     # Exit with success status
 #######################################################################################
 
 * [[Plugin development]]
